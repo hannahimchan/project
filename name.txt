@@ -1,0 +1,48 @@
+$number = $_POST["number"];
+$fname = $_POST["fname"];
+$sname = $_POST["sname"];
+$department = $_POST["department"];
+$date = $_POST["date"];
+$type_electricity = $_POST["type_electricity"];
+$electricity[] = $_POST["electricity[]"];
+$type_sanitary = $_POST["type_sanitary"];
+$sanitary[] = $_POST["sanitary[]"];
+$type_office = $_POST["type_office"];
+$office_equipment[] = $_POST["office_equipment[]"];
+$description = $_POST["description"];
+$place = $_POST["place"];
+$floor[] = $_POST["floor[]"];
+$room = $_POST["room"];
+
+
+//check value ไฟฟ้า/แอร์
+                // echo  $type_electricity, ":"  ," ";
+                foreach($_POST['electricity'] as $value) {
+                echo $value, " ";
+                }
+                echo "<br>";
+                //check radio สุขาภิบาล
+                if(empty($_POST['sanitary'])){
+                   
+                }else {
+                    echo "สุขาภิบาล/อาคาร: ".$value, " ";
+                }
+                
+                //checkbox value ไฟฟ้า/แอร์
+                // echo "<br>",$type_sanitary, ":"  ," " ;
+                foreach($_POST['sanitary'] as $value) {
+                    echo $value, " ";
+                }
+
+                //check radio อุปกรณ์สำนักงาน
+                if(empty($type_office)){
+                    // echo "<br>";
+                }else{
+                    echo "<br>",$type_office," : ";
+                }
+
+                //checkbox value  อุปกรณ์สำนักงาน
+                // echo "<br>",$type_office, ":"  ," " ;
+                foreach($_POST['office'] as $value) {
+                    echo $value, " " ;
+                }
