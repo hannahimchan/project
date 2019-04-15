@@ -16,17 +16,41 @@
     <script src="js/wow.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
     <script>
         $(document).ready(function(){
-            
-            $("#type").click(function(){
-                $("#elect").slideDown("slow");
-            });
+            //ประเภท
+            $("#elect, #san, #office").hide();
+           
+            $("#type1").change(function(){
+                var value = $("#type1 option:selected").val();
+                
+                if (value == ""){
+                    $('#elect').hide();
+                    $('#san').hide();
+                    $('#office').hide();
+                }else if (value == "ไฟฟ้า"){
+                    $('#elect').show();
+                    $('#san').hide();
+                    $('#office').hide();
+                } else if(value == "ตัวอาคาร"){
+                    $('#elect').hide();
+                    $('#san').show();
+                    $('#office').hide();
+                }else{
+                    $('#elect').hide();
+                    $('#san').hide();
+                    $('#office').show();
+                }
+
+                //สถานที่/อาคาร/ชั้น
+
+
+            });  
         });
     </script>
 
-    
     <style>
         @import url('https://fonts.googleapis.com/css?family=Bai+Jamjuree|Mali');
 
@@ -74,8 +98,11 @@
                         
                     <?php
                         /*วันที่*/
-                        $yearMounth = substr(date("Y")+543, -2)."-".date("m")."-".date("d"); 
+                       // $Y = $Y+543;
+                        $yearMounth =  date("d-m-Y");
+                        // $yearMounth = substr(date("Y")+543)."-".date("m")."-".date("d"); 
 
+                       
                        /*รันเลขที่แจ้ง*/ 
                         $sql="SELECT MAX('id') AS 'lastid' FROM 'form'";
                         // $sql = "SHOW TABLE STATUS LIKE 'form";
@@ -114,25 +141,18 @@
                             placeholder="" required autofocus><br>
                     </div>
 
-                    <div class="form-gruop">
-                        <label for="type">ประเภท</label>
-                            <?php
-                                $type = "SELECT * FROM type";
-                                $result = mysqli_query($conn, $type);
-                            ?>
-                        <select name="type" id="type">
+                    <div class="form-gruop" >
+                    <label for="type">ประเภท</label>
+                        <select name="type" id="type1">
                             <option value="">---เลือกประเภท---</option>
-                            <?php
-                                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                                    echo "<option value='$row[id]'>$row[name]</option>";
-                                }
-                            ?>
-                        </select><br><br>
+                            <option value="ไฟฟ้า">ไฟฟ้า</option>
+                            <option value="ตัวอาคาร">ตัวอาคาร</option>
+                            <option value="ครุภัณฑ์">ครุภัณฑ์</option>
+                        </select>
                     </div>
 
                     <div class="form-gruop" id="elect">
-                        <label for="elect">ไฟฟ้า</label><br>
-
+                       
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="electricity[]" value="หลอดไฟ">หลอดไฟ &nbsp;&nbsp;
                         <input type="checkbox" name="electricity[]" value="ปลั๊กไฟ"> ปลั๊กไฟ &nbsp;&nbsp;
                         <input type="checkbox" name="electricity[]" value="แอร์"> แอร์ &nbsp;&nbsp;
@@ -143,8 +163,7 @@
                         <textarea name="other_electricity" rows="4" cols="30" placeholder="อื่นๆ (ระบุ)"></textarea> <br><br>
                     </div>
 
-                    <div class="form-gruop" id="sa">
-                        <label for="sanitaty">ตัวอาคาร</label><br>
+                    <div class="form-gruop" id="san">
 
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="sanitary[]" value="ประตู"> ประตู &nbsp;&nbsp;
                         <input type="checkbox" name="sanitary[]" value="หน้าต่าง"> หน้าต่าง &nbsp;&nbsp;
@@ -158,8 +177,7 @@
                     </div>
 
                     <div class="form-gruop" id="office">
-                        <label for="office">ครุภัณฑ์</label><br>
-
+                        
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <input type="checkbox" name="office[]" value="เก้าอี้"> เก้าอี้ &nbsp;&nbsp;
                         <input type="checkbox" name="office[]" value="โต๊ะ"> โต๊ะ &nbsp;&nbsp;
@@ -185,7 +203,7 @@
                             <option value="">---เลือกสถานที่---</option>
                             <?php
                                 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                                    echo "<option value='$row[rep_place]'>$row[rep_placename]</option>";
+                                    echo "<option value='$row[placename]'>$row[placename]</option>";
                                 }
                             ?>
                         </select><br><br>
@@ -222,6 +240,24 @@
 
             </form><br>
           
+            <!-- <script>
+                function showType(str) {
+                var xhttp;  
+                if (str == "") {
+                    document.getElementById("txtHint").innerHTML = "";
+                    return;
+                }
+                xhttp = new XMLHttpRequest();
+                xhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("txtHint").innerHTML = this.responseText;
+                    }
+                };
+                xhttp.open("GET", "form.php?q="+str, true);
+                xhttp.send();
+                }
+            </script> -->
+
          </div>
       </div>
     </div>
