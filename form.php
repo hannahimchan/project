@@ -99,8 +99,10 @@
                     <?php
                         /*วันที่*/
                        // $Y = $Y+543;
-                        $yearMounth =  date("d-m-Y");
-                        // $yearMounth = substr(date("Y")+543)."-".date("m")."-".date("d"); 
+                       
+                        //$yearMounth =  date("d-m-Y");
+                        $yearMounth = substr(date("Y")+543, -2)."-".date("m")."-".date("d");
+                        //$yearMounth = substr(date("d")."-".date("m")."-".date("Y")+543, -2);
 
                        
                        /*รันเลขที่แจ้ง*/ 

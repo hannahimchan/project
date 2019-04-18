@@ -57,6 +57,8 @@
     <th>ชั้น</th>
     <th>ห้อง</th>
     <th>สถานะ</th>
+    <th>อัพเดต</th>
+    <th>ลบ</th>
 
     </tr>
 </thead>
@@ -84,9 +86,14 @@ if ($result->num_rows > 0) {
             echo "<td>" . $row["floor"]. "</td>";
             echo "<td>" . $row["room"]. "</td>";
             echo "<td>" . $row["status"]. "</td>";
+            $description = $row["description"];
+            echo "<td><a href=\"oo_disp_dept.php?description=$description\">Update</a></td>\n";
+//สร้าง link ไปยังโปรแกรม php ที่ทำหน้าที่ลบข้อมูลรพร้อมส่งรหัสแผนกหัสแผนก
+            echo "<td><a href=\"oo_del_dept.php?description=$description\">Delete</a></td>\n";
         echo "</tr>";
     }
 }
+
 $conn->close();
         
 ?>
